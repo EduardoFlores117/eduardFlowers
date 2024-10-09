@@ -1,0 +1,7 @@
+[
+    { "id": 1, "department": "Recepción", "totalEmployees": 10, "present": 8, "absent": 2, "attendancePercentage": 80 },
+    { "id": 2, "department": "Cocina", "totalEmployees": 12, "present": 11, "absent": 1, "attendancePercentage": 91.67 },
+    { "id": 3, "department": "Limpieza", "totalEmployees": 15, "present": 12, "absent": 3, "attendancePercentage": 80 },
+    { "id": 4, "department": "Mantenimiento", "totalEmployees": 8, "present": 6, "absent": 2, "attendancePercentage": 75 },
+    { "id": 5, "department": "Seguridad", "totalEmployees": 5, "present": 5, "absent": 0, "attendancePercentage": 100 }
+]
