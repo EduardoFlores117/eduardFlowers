@@ -2,8 +2,8 @@ const express = require('express');
 const path = require('path'); // Para gestionar rutas de archivos
 const morgan = require('morgan'); // Middleware para el registro de solicitudes
 const bodyParser = require('body-parser'); // Middleware para analizar cuerpos de solicitudes
-import express from 'express';
-import cors from 'cors';  // Importar cors
+const express = require('express');
+const cors = require('cors');
 
 // Configurar CORS para permitir todos los orígenes
 app.use(cors());
