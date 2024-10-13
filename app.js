@@ -4,6 +4,11 @@ const morgan = require('morgan'); // Middleware para el registro de solicitudes
 const bodyParser = require('body-parser'); // Middleware para analizar cuerpos de solicitudes
 const cors = require('cors');
 
+const app = express();
+const comedorController = require('./controllers/comedorController');
+const employeeController = require('./controllers/EmployeeController');
+const attendanceStatController = require('./controllers/AttendanceStatController');
+
 // Configurar CORS para permitir todos los orígenes
 app.use(cors());
 
@@ -13,12 +18,6 @@ app.use(cors());
 app.get('/api/data', (req, res) => {
     res.json({ message: "Solicitud exitosa desde un origen diferente" });
 });
-
-
-const app = express();
-const comedorController = require('./controllers/comedorController');
-const employeeController = require('./controllers/EmployeeController');
-const attendanceStatController = require('./controllers/AttendanceStatController');
 
 // Middleware para servir archivos estáticos desde la carpeta 'public'
 // Crea esta carpeta y coloca allí tus archivos estáticos (CSS, imágenes, etc.)
