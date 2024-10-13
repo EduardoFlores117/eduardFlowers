@@ -9,7 +9,7 @@ import cors from 'cors';  // Importar cors
 app.use(cors());
 
 // Alternativamente, podemos restringir el acceso a un dominio específico
-// app.use(cors({ origin: 'http://frontend.com' }));
+// app.use(cors({ origin: 'http://frontend.com' }))
 
 app.get('/api/data', (req, res) => {
     res.json({ message: "Solicitud exitosa desde un origen diferente" });
