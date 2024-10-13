@@ -85,7 +85,7 @@ app.use((err, req, res, next) => {
 });
 
 // Puerto de escucha
-const PORT = process.env.PORT || 3001; // Cambiado a 3001
+const PORT = process.env.PORT || 3000; // Cambiado a 3001
 app.listen(PORT, () => {
     console.log(`Servidor en ejecución en el puerto ${PORT}`);
 });
