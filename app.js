@@ -1,8 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path'); // Para gestionar rutas de archivos
 const morgan = require('morgan'); // Middleware para el registro de solicitudes
 const bodyParser = require('body-parser'); // Middleware para analizar cuerpos de solicitudes
 const cors = require('cors');
+const authController = require('./controllers/authController'); // Importar el controlador de autenticación
+const authMiddleware = require('./middlewares/authMiddleware'); // Importar el middleware de autenticación
 
 const app = express();
 const comedorController = require('./controllers/comedorController');
@@ -11,13 +14,6 @@ const attendanceStatController = require('./controllers/AttendanceStatController
 
 // Configurar CORS para permitir todos los orígenes
 app.use(cors());
-
-// Alternativamente, podemos restringir el acceso a un dominio específico
-// app.use(cors({ origin: 'http://frontend.com' }))
-
-app.get('/api/data', (req, res) => {
-    res.json({ message: "Solicitud exitosa desde un origen diferente" });
-});
 
 // Middleware para servir archivos estáticos desde la carpeta 'public'
 // Crea esta carpeta y coloca allí tus archivos estáticos (CSS, imágenes, etc.)
@@ -29,6 +25,12 @@ app.use(morgan('dev'));
 // Middleware para analizar cuerpos de solicitudes JSON
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // Para formularios URL encoded
+
+// Rutas de autenticación (sin protección)
+app.use('/api/auth', authController); // Rutas de registro e inicio de sesión
+
+// Aplicar el middleware de autenticación a todas las rutas que comienzan con /api, excluyendo /api/auth
+app.use('/api', authMiddleware); // Este middleware se aplicará a las rutas que comienzan con /api, pero no afectará a /api/auth
 
 // Rutas del comedor
 app.get('/api/comedor', comedorController.getRecords);
@@ -42,31 +44,8 @@ app.post('/api/employees', employeeController.createRecord);
 app.put('/api/employees/:id', employeeController.updateRecord);
 app.delete('/api/employees/:id', employeeController.deleteRecord);
 
-// Rutas para empleados (si las tienes)
-app.get('/api/empleados', (req, res) => {
-    res.send("Aquí estarán las rutas para empleados cuando estén implementadas.");
-});
-
 // Rutas para estadísticas de asistencia
 app.use('/api', attendanceStatController);
-
-// Rutas para empleados (sin controlador definido)
-app.post('/api/empleados', (req, res) => {
-    res.send("Ruta para crear un empleado");
-});
-
-app.put('/api/empleados/:id', (req, res) => {
-    res.send(`Actualizar empleado con id: ${req.params.id}`);
-});
-
-app.delete('/api/empleados/:id', (req, res) => {
-    res.send(`Eliminar empleado con id: ${req.params.id}`);
-});
-
-// Rutas para index u otras secciones
-app.get('/api/index', (req, res) => {
-    res.send("Ruta para el índice o bienvenida");
-});
 
 // Ruta de bienvenida o índice
 app.get('/', (req, res) => {
@@ -85,7 +64,7 @@ app.use((err, req, res, next) => {
 });
 
 // Puerto de escucha
-const PORT = process.env.PORT || 3000; // Cambiado a 3001
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor en ejecución en el puerto ${PORT}`);
 });
