@@ -15,8 +15,10 @@ const comedorController = require('./controllers/comedorController');
 const employeeController = require('./controllers/EmployeeController');
 const attendanceStatController = require('./controllers/AttendanceStatController');
 
-// Configurar CORS para permitir todos los orígenes
-app.use(cors());
+// Configurar CORS para permitir solo el dominio especificado
+app.use(cors({
+    origin: 'https://api-eduardflowers.onrender.com'
+}));
 
 // Middleware para servir archivos estáticos desde la carpeta 'public'
 // Crea esta carpeta y coloca allí tus archivos estáticos (CSS, imágenes, etc.)
