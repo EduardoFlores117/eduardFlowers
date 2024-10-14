@@ -6,7 +6,7 @@ const authMiddleware = require('../middlewares/authMiddleware');  // Importar el
 
 // Proteger las rutas con el middleware de autenticación
 // Endpoint para obtener estadísticas de asistencia (con opción de filtrar por departamento)
-router.get('/attendance-stats', authMiddleware, (req, res) => {
+router.get('/', authMiddleware, (req, res) => {
     const department = req.query.department;
     
     try {
@@ -18,7 +18,7 @@ router.get('/attendance-stats', authMiddleware, (req, res) => {
 });
 
 // Endpoint para obtener estadísticas de asistencia por ID
-router.get('/attendance-stats/:id', authMiddleware, (req, res) => {
+router.get('/:id', authMiddleware, (req, res) => {
     const id = req.params.id;
     
     try {
