@@ -6,7 +6,7 @@ const bodyParser = require('body-parser'); // Middleware para analizar cuerpos d
 const cors = require('cors');
 const authController = require('./controllers/authController'); // Importar el controlador de autenticación
 const authMiddleware = require('./middlewares/authMiddleware'); // Importar el middleware de autenticación
-
+//
 const app = express();
 const comedorController = require('./controllers/comedorController');
 const employeeController = require('./controllers/EmployeeController');
