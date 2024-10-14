@@ -48,7 +48,8 @@ app.put('/api/employees/:id', employeeController.updateRecord);
 app.delete('/api/employees/:id', employeeController.deleteRecord);
 
 // Rutas para estadísticas de asistencia
-app.use('/api', attendanceStatController);
+app.use('/api/attendance-stats', attendanceStatController);
+
 
 // Ruta de bienvenida o índice
 app.get('/', (req, res) => {
