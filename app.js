@@ -1,4 +1,7 @@
-require('dotenv').config();
+// Solo cargamos dotenv en desarrollo local
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();  // Esto solo lee .env si no estás en producción
+}
 const express = require('express');
 const path = require('path'); // Para gestionar rutas de archivos
 const morgan = require('morgan'); // Middleware para el registro de solicitudes
