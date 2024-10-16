@@ -9,7 +9,10 @@ const bodyParser = require('body-parser'); // Middleware para analizar cuerpos d
 const cors = require('cors');
 const authController = require('./controllers/authController'); // Importar el controlador de autenticación
 const authMiddleware = require('./middlewares/authMiddleware'); // Importar el middleware de autenticación
-//
+
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express'); // Importa Swagger UI
+
 const app = express();
 const comedorController = require('./controllers/comedorController');
 const employeeController = require('./controllers/EmployeeController');
@@ -21,7 +24,6 @@ app.use(cors({
 }));
 
 // Middleware para servir archivos estáticos desde la carpeta 'public'
-// Crea esta carpeta y coloca allí tus archivos estáticos (CSS, imágenes, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware para registrar solicitudes HTTP
@@ -30,6 +32,32 @@ app.use(morgan('dev'));
 // Middleware para analizar cuerpos de solicitudes JSON
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // Para formularios URL encoded
+
+// Configuración de Swagger
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'API de Empleados',
+            version: '1.0.0',
+            description: 'Documentación de la API de Empleados',
+            contact: {
+                name: 'Eduardo',
+                email: 'eduardo@example.com'
+            }
+        },
+        servers: [
+            {
+                url: 'https://api-eduardflowers.onrender.com',
+                description: 'Servidor de producción'
+            }
+        ]
+    },
+    apis: ['./controllers/*.js'], // Ruta donde Swagger buscará los comentarios JSDoc
+};
+
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Ruta de Swagger
 
 // Rutas de autenticación (sin protección)
 app.use('/api/auth', authController); // Rutas de registro e inicio de sesión
@@ -51,7 +79,6 @@ app.delete('/api/employees/:id', employeeController.deleteRecord);
 
 // Rutas para estadísticas de asistencia
 app.use('/api/attendance-stats', attendanceStatController);
-
 
 // Ruta de bienvenida o índice
 app.get('/', (req, res) => {
