@@ -9,6 +9,10 @@
     "express-validator": "^7.2.0",
     "fs-extra": "^11.2.0",
     "jsonwebtoken": "^9.0.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.0.0",  // Versión más reciente de swagger-jsdoc
+    "swagger-ui-express": "^4.0.0"  // Versión más reciente de swagger-ui-express
   }
 }
+
+
