@@ -2,6 +2,7 @@
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();  // Esto solo lee .env si no estás en producción
 }
+
 const express = require('express');
 const path = require('path'); // Para gestionar rutas de archivos
 const morgan = require('morgan'); // Middleware para el registro de solicitudes
@@ -18,9 +19,13 @@ const comedorController = require('./controllers/comedorController');
 const employeeController = require('./controllers/EmployeeController');
 const attendanceStatController = require('./controllers/AttendanceStatController');
 
+// Definir el puerto y el host desde variables de entorno o usar valores predeterminados
+const PORT = process.env.PORT || 3000;
+const API_HOST = process.env.API_HOST || 'https://api-eduardflowers.onrender.com';
+
 // Configurar CORS para permitir solo el dominio especificado
 app.use(cors({
-    origin: 'https://api-eduardflowers.onrender.com'
+    origin: API_HOST
 }));
 
 // Middleware para servir archivos estáticos desde la carpeta 'public'
@@ -48,7 +53,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: 'https://api-eduardflowers.onrender.com',
+                url: API_HOST, // Usar la variable de entorno para el host
                 description: 'Servidor de producción'
             }
         ]
@@ -97,7 +102,6 @@ app.use((err, req, res, next) => {
 });
 
 // Puerto de escucha
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor en ejecución en el puerto ${PORT}`);
+    console.log(`Servidor en ejecución en ${API_HOST} en el puerto ${PORT}`);
 });
