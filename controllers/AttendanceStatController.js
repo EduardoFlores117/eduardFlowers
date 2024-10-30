@@ -18,7 +18,7 @@ const authMiddleware = require('../middlewares/authMiddleware');  // Importar el
  *           type: string
  *         description: Nombre del departamento para filtrar estadísticas
  *     security:
- *       - bearerAuth: []  # Requiere autenticación con JWT
+ *       - BearerAuth: []  # Requiere autenticación con JWT
  *     responses:
  *       200:
  *         description: Estadísticas de asistencia obtenidas correctamente
